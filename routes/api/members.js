@@ -1,4 +1,5 @@
 const express = require('express')
+const uuid = require('uuid')
 const router = express.Router();
 const members = require('../../Members')
 
@@ -18,7 +19,23 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    res.send(req.body)
+    const newMember = {
+        //v4 is a method that generates new random universal id
+        id: uuid.v4(),
+        name: req.body.name,
+        email: req.body.email,
+        status: 'active'
+    }
+    //Add new member onto array, but make sure name and email are sent with request
+    if (!newMember.name || !newMember.email) {
+        return res.status(400).json({ msg: 'Please include a name and email' })
+    }
+    //adds member to array
+    members.push(newMember)
+    //return entire array of members, including new one
+    res.json(members)
+
+
 })
 
 module.exports = router
