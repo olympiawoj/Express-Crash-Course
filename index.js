@@ -1,11 +1,12 @@
 //Bring in express
 const express = require('express')
+const path = require('path')
 
 //initialize variable app w/ express
 const app = express()
 
 app.get("/", (req, res) => {
-    res.send('<h1>Hey World!</> ')
+    res.sendFile(path.join(__dirname, 'public', 'index.html'))
 })
 
 const PORT = process.env.PORT || 3000
