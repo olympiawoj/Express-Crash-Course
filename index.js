@@ -4,6 +4,7 @@ const path = require('path')
 const exphbrs = require('express-handlebars')
 
 const logger = require('./middleware/logger')
+const members = require('./Members')
 
 //initialize variable app w/ express
 const app = express()
@@ -22,7 +23,15 @@ app.use(express.json())
 //Form submissions & URL encoded data
 app.use(express.urlencoded({ extended: false }))
 
-//Static folder- use is method we use when we wanna include middleware
+//Homepage
+app.get('/', (req, res) =>
+    res.render('index', {
+        title: "Member App",
+        members
+    })
+)
+
+//Set static folder- use is method we use when we wanna include middleware
 //Point to folder we want to set as static folder
 app.use(express.static(path.join(__dirname, "public")))
 
