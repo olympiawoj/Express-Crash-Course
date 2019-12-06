@@ -34,6 +34,7 @@ router.post('/', (req, res) => {
     members.push(newMember)
     //return entire array of members, including new one
     res.json(members)
+    // res.redirect('/')
 
 
 })
